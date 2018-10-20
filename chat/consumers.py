@@ -1,5 +1,6 @@
 # chat/consumers.py
 from chat.models import ChatMessage
+from chat.bot_utils import process_msg
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
@@ -29,8 +30,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        m = ChatMessage(user=self.user, message=str(self.user) + ': ' + message)
-        m.save()
+        bot_message = process_msg(message, self.user)
+
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -39,6 +40,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': str(self.user) + ': ' + message
             }
         )
+        if bot_message:
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'chat_message',
+                    'message': 'Bot: ' + bot_message
+                }
+            )
+
 
     # Receive message from room group
     async def chat_message(self, event):
@@ -47,4 +57,5 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message
         }))
+
 
