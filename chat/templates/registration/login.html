@@ -1,0 +1,17 @@
+{% extends 'registration/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <strong>Already logged in</strong>
+        <a href="{% url 'chat:index' %}">ChatRoom</a>
+    {% else %}
+      <h2>Login</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+      </form>
+    {% endif %}
+{% endblock %}
