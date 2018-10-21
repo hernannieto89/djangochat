@@ -102,3 +102,12 @@ Sent: Parameter missing.
  [x] Received b'/wrong_cmd=1'
 Sent: Invalid command.
 ```
+
+## To Do
+
+* Add multiple chat rooms support.
+* Add change password functionality.
+* Add Unit Testing.
+* Improve RabbitMQ listener bot identification.
+* Add logging feature to RabbitMQ listener bot.
+* Improve UI.
