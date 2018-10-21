@@ -1,0 +1,14 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<strong>{{user_name}}</strong>
+<form method="post">
+  {% csrf_token %}
+  {{ profile_form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+{% else %}
+    <strong>Welcome to DjangoChat. Please login or register.</strong>
+{% endif %}
+<h5>{{ messages }}</h5>
+{% endblock %}

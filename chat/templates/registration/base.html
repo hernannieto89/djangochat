@@ -10,6 +10,9 @@
     <header>
       <h1>DjangoChat</h1>
       {% if user.is_authenticated %}
+        <h4>Logged as {{ user }}</h4>
+        <a href="{% url 'chat:index' %}">chatroom</a> /
+        <a href="{% url 'chat:profile' %}">profile</a> /
         <a href="{% url 'chat:logout' %}">logout</a>
       {% else %}
         <a href="{% url 'chat:login' %}">login</a> / <a href="{% url 'chat:register' %}">signup</a>

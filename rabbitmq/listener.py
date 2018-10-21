@@ -47,7 +47,10 @@ def process_msg(body):
 
     if match:
         stock_name = match.group().split('=')[1]
-        return get_stock_info(stock_name)
+        if stock_name:
+            return get_stock_info(stock_name)
+        else:
+            return 'Parameter missing.'
     else:
         return 'Invalid command.'
 
