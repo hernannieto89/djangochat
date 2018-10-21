@@ -1,6 +1,5 @@
 # chat/consumers.py
-from chat.models import ChatMessage
-from chat.bot_utils import process_msg
+from chat.utils import process_msg, user_sanitizer
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
@@ -30,25 +29,19 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        bot_message = process_msg(message, self.user)
+        username = user_sanitizer(self.user)
+
+        if username is not 'Bot':
+            process_msg(message, self.user)
 
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': str(self.user) + ': ' + message
+                'message': username + ': ' + message
             }
         )
-        if bot_message:
-            await self.channel_layer.group_send(
-                self.room_group_name,
-                {
-                    'type': 'chat_message',
-                    'message': 'Bot: ' + bot_message
-                }
-            )
-
 
     # Receive message from room group
     async def chat_message(self, event):
