@@ -25,10 +25,10 @@ def callback(ch, method, properties, body):
     """
     print(" [x] Received %r" % body)
 
-    msg = process_msg(body)
+    msg, room = process_msg(body)
 
     ws = websocket.WebSocket()
-    ws.connect(url="ws://127.0.0.1:8000/ws/chat/1/")
+    ws.connect(url="ws://127.0.0.1:8000/ws/chat/" + room + "/")
     ws.send(json.dumps({'message': msg}))
     ws.close()
 
@@ -42,17 +42,18 @@ def process_msg(body):
     :return: String
     """
     message = body.decode('utf-8')
+    json_msg = json.loads(message)
     regex = re.compile('/stock=(.*)')
-    match = regex.match(message)
+    match = regex.match(json_msg['message'])
 
     if match:
         stock_name = match.group().split('=')[1]
         if stock_name:
-            return get_stock_info(stock_name)
+            return get_stock_info(stock_name), json_msg['room']
         else:
-            return 'Parameter missing.'
+            return 'Parameter missing.', json_msg['room']
     else:
-        return 'Invalid command.'
+        return 'Invalid command.', json_msg['room']
 
 
 def get_stock_info(stock_name):

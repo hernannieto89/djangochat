@@ -3,18 +3,20 @@
 Utilities module for Chat App - DjangoChat project.
 """
 import pika
+import json
 from chat.models import ChatMessage
 
 from django.contrib.auth.models import AnonymousUser
 
 
-def get_last_messages():
+def get_last_messages(room_name):
     """
     Gets last 50 messages from the Database.
     Creates a string with all the messages appended.
+    :param room_name: String
     :return: String
     """
-    chat_queryset = ChatMessage.objects.order_by("-created")[:50]
+    chat_queryset = ChatMessage.objects.filter(room=room_name).order_by("-created")[:50]
     chat_messages = reversed(chat_queryset)
 
     messages_raw = ''
@@ -24,17 +26,19 @@ def get_last_messages():
     return messages_raw
 
 
-def process_msg(message, user):
+def process_msg(message, user, room_name):
     """
     Process chat message, if message starts with dash symbol it is handled to RabbitMQ Bot.
     If it is a regular message, it is stored in the DB.
     :param message: String
+    :param room_name: String
     :param user: LazyObject
     """
     if message.startswith('/'):
-        publish_request(message)
+
+        publish_request(json.dumps({'message': message, 'room': room_name}))
     else:
-        m = ChatMessage(user=user, message=str(user) + ': ' + message)
+        m = ChatMessage(user=user, message=str(user) + ': ' + message, room=room_name)
         m.save()
 
 

@@ -14,6 +14,7 @@ class ChatMessage(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField(max_length=3000)
+    room = models.CharField(max_length=100, null=False, default='lobby')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

@@ -35,14 +35,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
         username = user_sanitizer(self.user)
 
         if username is not 'Bot':
-            process_msg(message, self.user)
+            process_msg(message, self.user, self.room_name)
 
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': username + ': ' + message
+                'message': username + ': ' + message,
+                'room': self.room_name
             }
         )
 

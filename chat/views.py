@@ -1,8 +1,10 @@
 # chat/views.py
+import json
 from django.contrib.auth import login,  authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.utils.safestring import mark_safe
 from chat.utils import get_last_messages
 from chat.forms import ProfileForm
 
@@ -10,13 +12,25 @@ from chat.forms import ProfileForm
 @login_required(login_url="/login/")
 def index_view(request):
     """
-    Index view for chat room.
+    Index view.
     :param request: Request Object
+    :return: HttpResponse
+    """
+    return render(request, 'chat/index.html', {})
+
+
+@login_required(login_url="/login/")
+def room_view(request, room_name):
+    """
+    Room view.
+    :param request: Request Object
+    :param room_name: String
     :return: HttpResponse
     """
 
     return render(request, "chat/room.html", {
-        'chat_messages': get_last_messages()
+        'chat_messages': get_last_messages(room_name),
+        'room_name_json': mark_safe(json.dumps(room_name))
     })
 
 
