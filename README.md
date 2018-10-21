@@ -95,6 +95,9 @@ This page allows the user to update its profile.
 #### Logout
 Logout page, located at localhost:port/logout. Redirects to login page.
 
+#### Django admin
+Django admin is available at localhost:port/admin if needed.
+
 ### Bot
 Currently the bot handles only one command '/stock=STOCK_NAME'.
 This command gets stock price information and post it on the chat room.
