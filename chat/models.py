@@ -1,10 +1,14 @@
+# chat/models.py
+"""
+Models for Chat App - DjangoChat project.
+"""
 from django.db import models
 from django.contrib.auth.models import User
 
 
 class ChatMessage(models.Model):
     """
-    Model to represent user submitted changed to a resource guide
+    Model to represent user message
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField(max_length=3000)
@@ -15,5 +19,4 @@ class ChatMessage(models.Model):
         """
         String to represent the message
         """
-
         return self.message

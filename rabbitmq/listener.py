@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+"""
+RabbitMQ Bot
+"""
 import websocket
 import pika
 import csv
@@ -14,6 +16,13 @@ channel.queue_declare(queue='djangochat')
 
 
 def callback(ch, method, properties, body):
+    """
+    Callback function for RabbitMQ handler.
+    :param ch: _
+    :param method: _
+    :param properties: _
+    :param body: String
+    """
     print(" [x] Received %r" % body)
 
     msg = process_msg(body)
@@ -27,6 +36,11 @@ def callback(ch, method, properties, body):
 
 
 def process_msg(body):
+    """
+    Processes message. Validates if given command exists.
+    :param body: String
+    :return: String
+    """
     message = body.decode('utf-8')
     regex = re.compile('/stock=(.*)')
     match = regex.match(message)
@@ -39,12 +53,18 @@ def process_msg(body):
 
 
 def get_stock_info(stock_name):
-
+    """
+    Fetch stock information from endpoint.
+    Creates string response.
+    :param stock_name: String
+    :return: String
+    """
     endpoint = 'https://stooq.com/q/l/?s={}.us&f=sd2t2ohlcv&h&e=csv'.format(stock_name.lower())
     response = requests.get(endpoint)
 
     decoded_content = response.content.decode('utf-8')
     cr = list(csv.reader(decoded_content.splitlines(), delimiter=','))
+
     return "{0} quote is ${1} per share".format(stock_name, cr[1][6])
 
 

@@ -1,4 +1,7 @@
 # chat/consumers.py
+"""
+Asynchronous WebSocket Consumer for Chat App - DjangoChat project.
+"""
 from chat.utils import process_msg, user_sanitizer
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
@@ -50,5 +53,3 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message
         }))
-
-
