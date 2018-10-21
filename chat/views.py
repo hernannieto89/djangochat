@@ -30,7 +30,9 @@ def room_view(request, room_name):
 
     return render(request, "chat/room.html", {
         'chat_messages': get_last_messages(room_name),
-        'room_name_json': mark_safe(json.dumps(room_name))
+        'room_name_json': mark_safe(json.dumps(room_name)),
+        'room_name': room_name
+
     })
 
 

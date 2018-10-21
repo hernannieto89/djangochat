@@ -1,9 +1,21 @@
 {% extends 'registration/base.html' %}
 {% block content %}
+
+{# Load Bootstrap4 #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
   <h2>Sign up</h2>
-  <form method="post">
+  <form method="post" class="form-group">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Sign up</button>
+      {% buttons %}
+        <button type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      {% endbuttons %}
   </form>
+
 {% endblock %}

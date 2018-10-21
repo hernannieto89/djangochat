@@ -3,15 +3,27 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+
+{# Load Bootstrap4 #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
     {% if user.is_authenticated %}
         <strong>Already logged in</strong>
         <a href="{% url 'chat:index' %}">ChatRoom</a>
     {% else %}
       <h2>Login</h2>
-      <form method="post">
+      <form method="post" class="form-group">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+      {% buttons %}
+        <button type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      {% endbuttons %}
       </form>
     {% endif %}
+
 {% endblock %}

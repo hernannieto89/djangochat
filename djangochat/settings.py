@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels'
+    'channels',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,5 @@ STATIC_URL = '/chat/static/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login'
+
+BOOTSTRAP4 = {'horizontal_label_class': 'col-md-3', 'horizontal_field_class': 'col-md-9'}

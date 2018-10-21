@@ -1,25 +1,32 @@
 <!-- chat/templates/chat/index.html -->
 {% extends 'registration/base.html' %}
-
 {% block content %}
-    {% if user.is_authenticated %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Rooms</title>
-</head>
-<body>
-    What chat room would you like to enter?<br/>
+{# Load Bootstrap4 #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
 
-    <a href="{% url 'chat:room' 'lobby' %}">lobby</a> /
-    <a href="{% url 'chat:room' 'room1' %}">room1</a> /
-    <a href="{% url 'chat:room' 'room2' %}">room2</a> /
+{% if user.is_authenticated %}
 
-</body>
-</html>
-    {% else %}
-        <strong>Welcome to DjangoChat. Please login or register.</strong>
-    {% endif %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Chat Rooms</title>
+    </head>
+    <body>
+        What chat room would you like to enter?<br/>
+
+        <button type="button" onclick="window.location.href='{% url 'chat:room' 'lobby'%}'" class="btn btn-info">Lobby</button>
+        <button type="button" onclick="window.location.href='{% url 'chat:room' 'room1'%}'" class="btn btn-info">Room 1</button>
+        <button type="button" onclick="window.location.href='{% url 'chat:room' 'room2'%}'" class="btn btn-info">Room 2</button>
+
+    </body>
+    </html>
+{% else %}
+    <strong>Welcome to DjangoChat. Please login or register.</strong>
+{% endif %}
+
 {% endblock %}

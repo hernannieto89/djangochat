@@ -1,21 +1,27 @@
-{% load staticfiles %}
+{# Load Bootstrap4 #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}"/>
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}DjangoChat{% endblock %}</title>
+    <title>{% block title %}DjangoChat{% endblock %}</title >
   </head>
   <body>
     <header>
-      <h1>DjangoChat</h1>
+      <h1 class="text-primary">DjangoChat</h1>
       {% if user.is_authenticated %}
-        <h4>Logged as {{ user }}</h4>
-        <a href="{% url 'chat:index' %}">home</a> /
-        <a href="{% url 'chat:profile' %}">profile</a> /
-        <a href="{% url 'chat:logout' %}">logout</a>
+        <h5>Welcome {{ user }}!</h5>
+
+        <button type="button" onclick="window.location.href='{% url 'chat:index' %}'" class="btn btn-info">Home</button>
+        <button type="button" onclick="window.location.href='{% url 'chat:profile' %}'" class="btn btn-info">Profile</button>
+        <button type="button" onclick="window.location.href='{% url 'chat:logout' %}'" class="btn btn-info">Logout</button>
       {% else %}
-        <a href="{% url 'chat:login' %}">login</a> / <a href="{% url 'chat:register' %}">signup</a>
+        <button type="button" onclick="window.location.href='{% url 'chat:login' %}'" class="btn btn-info">Login</button>
+        <button type="button" onclick="window.location.href='{% url 'chat:register' %}'" class="btn btn-info">Signup</button>
       {% endif %}
       <hr>
     </header>
