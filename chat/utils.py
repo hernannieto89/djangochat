@@ -1,4 +1,3 @@
-import re
 import pika
 from chat.models import ChatMessage
 
@@ -8,16 +7,7 @@ from django.contrib.auth.models import AnonymousUser
 def process_msg(message, user):
 
     if message.startswith('/'):
-        regex = re.compile('/stock=(.*)')
-        match = regex.match(message)
-
-        if match:
-            msg = match.group().split('=')[1]
-        else:
-            msg = 'Invalid command.'
-
-        publish_request(msg)
-
+        publish_request(message)
     else:
         m = ChatMessage(user=user, message=str(user) + ': ' + message)
         m.save()

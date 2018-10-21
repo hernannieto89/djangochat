@@ -5,6 +5,7 @@ import pika
 import csv
 import requests
 import json
+import re
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
@@ -26,10 +27,15 @@ def callback(ch, method, properties, body):
 
 
 def process_msg(body):
-    body = body.decode('utf-8')
-    if body == 'Invalid command.':
-        return body
-    return get_stock_info(body)
+    message = body.decode('utf-8')
+    regex = re.compile('/stock=(.*)')
+    match = regex.match(message)
+
+    if match:
+        stock_name = match.group().split('=')[1]
+        return get_stock_info(stock_name)
+    else:
+        return 'Invalid command.'
 
 
 def get_stock_info(stock_name):
