@@ -11,7 +11,7 @@ app_name = 'chat'
 
 urlpatterns = [
     url(r'^$', views.index_view, name='index'),
-    url(r'^chat/(?P<room_name>[^/]+)/$', views.room_view, name='room'),
+    url(r'^chat/(lobby|room1|room2)/$', views.room_view, name='room'),
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^register/$', views.register_view, name='register'),
