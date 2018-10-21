@@ -25,6 +25,9 @@ class ChatMessage(models.Model):
 
 
 class Profile(models.Model):
+    """
+    Model to represent user profile
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
@@ -33,5 +36,12 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """
+    Creates user profile on user creation.
+    :param sender: _
+    :param instance: User instance
+    :param created: Created flag
+    :param kwargs: _
+    """
     if created:
         Profile.objects.create(user=instance)
