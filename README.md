@@ -1,7 +1,7 @@
 # DjangoChat
 
 ## Description
-Simple single room, chat server. Powered by Django, RabbitMQ and Redis.
+Simple three-room chat server. Powered by Django, RabbitMQ and Redis.
 
 ## Instalation
 Requirements:
@@ -66,8 +66,14 @@ Quit the server with CONTROL-C.
 ```
 Development server is available at http://127.0.0.1:8000/.
 
+### Sections:
+
 #### Index
-Located at localhost:port/, the index page redirects to login if need.
+Located at localhost:port/, the index page redirects to login if needed.
+[PIC 1](https://github.com/hernannieto89/djangochat/tree/master/readme_utils/index.png)
+
+#### Chat Room
+Located at localhost:port/chat/(lobby|room1|room2), the chat room page redirects to login if needed.
 The chat room is available once the user has logged in.
 [PIC 1](https://github.com/hernannieto89/djangochat/tree/master/readme_utils/chatroom1.png)
 [PIC 2](https://github.com/hernannieto89/djangochat/tree/master/readme_utils/chatroom2.png)
@@ -87,27 +93,30 @@ This page allows the user to update its profile.
 [PIC 1](https://github.com/hernannieto89/djangochat/tree/master/readme_utils/logout.png)
 
 #### Logout
-Logout page, located at localhost:port/logout.
+Logout page, located at localhost:port/logout. Redirects to login page.
 
-#### Bot
+### Bot
 Currently the bot handles only one command '/stock=STOCK_NAME'.
 This command gets stock price information and post it on the chat room.
 This is an example of listener.py console output:
 ```
  [*] Waiting for messages. To exit press CTRL+C
- [x] Received b'/stock=AAPL'
+ [x] RReceived b'{"message": "/stock=AAPL", "room": "room1"}'
 Sent: AAPL quote is $219.31 per share
- [x] Received b'/stock='
+ [x] Received b'{"message": "/stock=AAPL", "room": "lobby"}'
+Sent: AAPL quote is $219.31 per share
+ [x] Received b'{"message": "/stock=", "room": "room2"}'
 Sent: Parameter missing.
- [x] Received b'/wrong_cmd=1'
+ [x] Received b'{"message": "/wrong_cmd=1", "room": "lobby"}'
 Sent: Invalid command.
 ```
 
 ## To Do
 
-* Add multiple chat rooms support.
+* In order to simplify design, the number of chat rooms available has been reduced to three. Nevertheless, the program supports more. 
 * Add change password functionality.
 * Add Unit Testing.
 * Improve RabbitMQ listener bot identification.
 * Add logging feature to RabbitMQ listener bot.
 * Improve UI.
+* Show connected/disconnected users (Chat room wise or system wise.)
