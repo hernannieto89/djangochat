@@ -35,7 +35,6 @@ def process_msg(message, user, room_name):
     :param user: LazyObject
     """
     if message.startswith('/'):
-
         publish_request(json.dumps({'message': message, 'room': room_name}))
     else:
         m = ChatMessage(user=user, message=str(user) + ': ' + message, room=room_name)

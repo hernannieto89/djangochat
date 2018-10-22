@@ -6,3 +6,4 @@ requests==2.20.0
 websockets==6.0
 websocket-client==0.53.0
 django-bootstrap4==0.0.7
+mock==2.0.0

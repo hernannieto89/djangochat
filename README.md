@@ -118,7 +118,7 @@ Sent: Invalid command.
 
 * In order to simplify design, the number of chat rooms available has been reduced to three. Nevertheless, the program supports more. 
 * Add change password functionality.
-* Add Unit Testing.
+* Add Unit Testing for models and RabbitMQ listener.
 * Improve RabbitMQ listener bot identification.
 * Add logging feature to RabbitMQ listener bot.
 * Improve UI.
