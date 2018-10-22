@@ -90,7 +90,7 @@ Signup page, located at localhost:port/register
 User profile page, located at localhost:port/profile.
 Immediately after signing up, an empty profile is created.
 This page allows the user to update its profile.
-[PIC 1](https://github.com/hernannieto89/djangochat/tree/master/readme_utils/logout.png)
+[PIC 1](https://github.com/hernannieto89/djangochat/tree/master/readme_utils/profile.png)
 
 #### Logout
 Logout page, located at localhost:port/logout. Redirects to login page.
