@@ -6,7 +6,7 @@ Simple three-room chat server. Powered by Django, RabbitMQ and Redis.
 ## Instalation
 Requirements:
  - [Ubuntu 17.10](https://www.ubuntu.com/desktop)
- - [Docker](https://docs.docker.com/)
+ - [Docker](https://docs.docker.com/) with [Redis](https://redis.io/)
  - [RabbitMQ](https://www.rabbitmq.com/getstarted.html)
  - [Python 3.7 +](https://www.python.org/)
 
