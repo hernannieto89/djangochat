@@ -114,6 +114,20 @@ Sent: Parameter missing.
 Sent: Invalid command.
 ```
 
+## Tests
+```
+$(djangochat) python manage.py test
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.017s
+
+OK
+Destroying test database for alias 'default'...
+
+```
+
 ## To Do
 
 * In order to simplify design, the number of chat rooms available has been reduced to three. Nevertheless, the program supports more. 
