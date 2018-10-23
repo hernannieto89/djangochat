@@ -38,16 +38,16 @@ $ (djangochat) pip3 install -r requirements.txt
 This script needs to be executed on a separated tab.
 ```
 $ (djangochat) cd rabbitmq
-$ (djangochat) python listener.py
+$ (djangochat) python3 listener.py
 ```
 
 ### Executing django server
 It is strongly recommended to create a superuser for django administrator.
 ```
-$ (djangochat) python manage.py makemigrations
-$ (djangochat) python manage.py migrate
-$ (djangochat) python manage.py createsuperuser
-$ (djangochat) python manage.py runserver
+$ (djangochat) python3 manage.py makemigrations
+$ (djangochat) python3 manage.py migrate
+$ (djangochat) python3 manage.py createsuperuser
+$ (djangochat) python3 manage.py runserver
 ```
 
 ## Usage
@@ -116,7 +116,7 @@ Sent: Invalid command.
 
 ## Tests
 ```
-$(djangochat) python manage.py test
+$(djangochat) python3 manage.py test
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 .......
@@ -132,8 +132,10 @@ Destroying test database for alias 'default'...
 
 * In order to simplify design, the number of chat rooms available has been reduced to three. Nevertheless, the program supports more. 
 * Add change password functionality.
+* RabbitMQ listener bot as a service.
 * Add Unit Testing for models and RabbitMQ listener.
 * Improve RabbitMQ listener bot identification.
 * Add logging feature to RabbitMQ listener bot.
 * Improve UI.
 * Show connected/disconnected users (Chat room wise or system wise.)
+* Automatize installation, ie, sh script.
